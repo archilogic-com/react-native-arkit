@@ -36,10 +36,23 @@ make sure to use the latest version of yarn (>=1.x.x)
 #### iOS
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ add `react-native-arkit/RCTARKit.xcodeproj` and `_PocketSVG/_PocketSVG.xcodeproj`
+2. Go to `node_modules` ➜ add `react-native-arkit/ios/RCTARKit.xcodeproj` and `react-native-arkit/ios/PocketSVG/PocketSVG.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRCTARKit.a` `and PocketSVG.framework` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. In Tab `General` ➜ `Embedded Binaries` ➜ `+` ➜ Add `PocketSVG.framework ios`
 5. Run your project (`Cmd+R`)<
+
+
+##### iOS Project configuration
+
+These steps are mandatory regardless of doing a manual or automatic installation:
+
+1. Give permissions for camera usage. In `Info.plist` add the following:
+
+```
+<key>NSCameraUsageDescription</key>
+<string>Your message to user when the camera is accessed for the first time</string>
+```
+2. ARKit only runs on arm64-ready devices so the default build architecture should be set to arm64: go to `Build settings` ➜ `Build Active Architecture Only` and change the value to `Yes`.
 
 
 ## Usage
@@ -129,6 +142,7 @@ export default class ReactNativeARKit extends Component {
             position={{ x: -0.2, y: 0, z: 0, frame: 'local' }}
             scale={0.01}
             model={{
+              scale: 1, // this is deprecated, use the scale property that is available on all 3d objects
               file: 'art.scnassets/ship.scn', // make sure you have the model file in the ios project
             }}
           />
@@ -197,7 +211,7 @@ The `Plane` object has the following properties:
 | `id` | a unique id identifying the plane |
 | `position` | the position of the plane (relative to the origin) |
 | `positionAbsolute` | the absolute position of the plane |
-| `extent` | the extent of the plane | 
+| `extent` | the extent of the plane |
 | `eulerAngles` | the rotation of the plane |
 
 
