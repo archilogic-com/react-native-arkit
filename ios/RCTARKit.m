@@ -146,13 +146,23 @@ void dispatch_once_on_main_thread(dispatch_once_t *predicate,
 
 - (BOOL)planeDetection {
     ARWorldTrackingConfiguration *configuration = (ARWorldTrackingConfiguration *) self.configuration;
-    return configuration.planeDetection == ARPlaneDetectionHorizontal;
+    if (@available(iOS 11.3, *)) {
+        NSLog(@"using vertical config");
+        return configuration.planeDetection == ARPlaneAnchorAlignmentVertical;
+    } else {
+        return configuration.planeDetection == ARPlaneDetectionHorizontal;
+    }
 }
 
 - (void)setPlaneDetection:(BOOL)planeDetection {
     ARWorldTrackingConfiguration *configuration = (ARWorldTrackingConfiguration *) self.configuration;
     if (planeDetection) {
-        configuration.planeDetection = ARPlaneDetectionHorizontal;
+        if (@available(iOS 11.3, *)) {
+            NSLog(@"using vertical plane detection");
+            configuration.planeDetection = ARPlaneDetectionVertical;
+        } else {
+            configuration.planeDetection = ARPlaneDetectionHorizontal;
+        }
     } else {
         configuration.planeDetection = ARPlaneDetectionNone;
     }
