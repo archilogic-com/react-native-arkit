@@ -36,6 +36,7 @@ RCT_EXPORT_MODULE()
              @"ARHitTestResultType": @{
                      @"FeaturePoint": @(ARHitTestResultTypeFeaturePoint),
                      @"EstimatedHorizontalPlane": @(ARHitTestResultTypeEstimatedHorizontalPlane),
+                     @"EstimatedVerticalPlane": @(ARHitTestResultTypeEstimatedVerticalPlane),
                      @"ExistingPlane": @(ARHitTestResultTypeExistingPlane),
                      @"ExistingPlaneUsingExtent": @(ARHitTestResultTypeExistingPlaneUsingExtent)
                      },
